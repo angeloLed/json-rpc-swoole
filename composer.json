@@ -1,5 +1,5 @@
 {
-  "name": "demo/swoole-jsonrpc",
+  "name": "angeloled/json-rpc-swoole",
   "description": "Sample integration test with PHP 8.2 + Swoole + JSON-RPC concepts",
   "minimum-stability": "stable",
   "license": "MIT",
