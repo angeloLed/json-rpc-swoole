@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+.docker/mongodb/data
+
+/vendor/
+.env
+.phpunit.result.cache

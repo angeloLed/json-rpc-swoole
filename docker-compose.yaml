@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - "${SERVER_PORT:-9501}:9501"
+    command: bash -c "
+        composer install
+        && composer run server
+      "
+    links:
+      - mongodb
+  mongodb:
+    image: mongo:5.0.18
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - type: volume
+        source: mongodata
+        target: /.docker/mongodb/data
+      - ./.docker/mongodb/init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+volumes:
+  mongodata:

@@ -1,0 +1,25 @@
+FROM phpswoole/swoole:4.8-php8.2
+
+RUN set -ex \
+    && apt update && apt upgrade --yes \
+    && apt install --yes libzip-dev \
+    && docker-php-ext-install -j$(nproc) opcache pdo_mysql zip \
+    && pecl update-channels \
+	&& pecl install inotify \
+    && docker-php-ext-enable inotify \
+    && pecl update-channels \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb \
+    && apt clean && rm -rf /var/lib/apt/lists && rm -rf /tmp/pear
+
+RUN composer selfupdate
+
+# remove server demo from swoole image
+RUN rm /var/www/server.php
+
+COPY .. /var/www
+
+# Disable swoole demo server (/usr/local/boot/disable-default-server.sh).
+ENV DISABLE_DEFAULT_SERVER 1
+
+WORKDIR /var/www
