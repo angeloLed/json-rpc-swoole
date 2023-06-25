@@ -7,7 +7,6 @@ use App\Lib\Exceptions\NotFoundException;
 use App\Lib\Exceptions\RpcMethodException;
 use App\Lib\ServiceContainer\ServiceContainerInterface;
 use App\Rpc\Methods\AbstractRpcMethod;
-use App\Rpc\Methods\TransformableInterface;
 use App\Rpc\RequestParser\RequestParserInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -80,7 +79,7 @@ class RequestHandler
             throw RpcMethodException::fromMethod($rpcRequestDTO->method); // http - 500
         }
 
-        $methodDto = $rpcMethod->parseRpcArguments($rpcRequestDTO->params);
+        $methodDto = $rpcMethod->parseRpcArguments($rpcRequestDTO->params ?? []);
 
         $result = ($rpcMethod)($methodDto);
 

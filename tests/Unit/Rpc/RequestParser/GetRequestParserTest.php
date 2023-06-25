@@ -34,8 +34,7 @@ class GetRequestParserTest extends TestCase
         $this->expectException(InvalidRequestException::class);
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->get = $this->buildBodyRequest('2.0','',1, [])
-        ;
+        $requestMock->get = $this->buildBodyRequest('2.0','',1, []);
 
         $this->service->parse($requestMock);
     }
@@ -71,7 +70,7 @@ class GetRequestParserTest extends TestCase
             'jsonrpc' => $jsonrpc,
             'method' => $method,
             'id' => $id,
-            'params' => $params
+            'params' => base64_encode(json_encode($params))
         ];
     }
 }

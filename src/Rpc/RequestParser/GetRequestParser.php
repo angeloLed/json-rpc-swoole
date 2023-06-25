@@ -25,7 +25,7 @@ class GetRequestParser implements RequestParserInterface
         return new MethodCallDTO(
             $jsonrpc,
             $rpcMethod,
-            $params,
+            json_decode(base64_decode($params), true),
             $id
         );
     }
