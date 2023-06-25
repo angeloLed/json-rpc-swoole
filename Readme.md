@@ -10,8 +10,10 @@ The idea is to use Swoole as a web server, where it will forward HTTP requests t
 
 RPC methods are used as controllers, where they are responsible for executing the logic and translating the response back to the client
 
-## Run
+## Install & Run
 ```sh
+git clone git@github.com:angeloLed/json-rpc-swoole.git
+cd json-rpc-swoole
 cp .env.example .env
 docker-compose up
 ```
